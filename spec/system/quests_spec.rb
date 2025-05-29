@@ -23,6 +23,19 @@ describe "Quests", type: :system do
       should_see_the_added_quest("Added Test Quest")
     end
   end
+
+  context "when deleting a quest" do
+    let!(:quest) { create(:quest, name: "Quest to be deleted") }
+    before do
+      visit root_path
+    end
+
+    it "allows the user to delete a quest" do
+      expect(page).to have_content("Quest to be deleted")
+      find("#delete-#{quest.id}-button").click
+      expect(page).not_to have_content("Quest to be deleted")
+    end
+  end
 end
 
 def click_on_new_quest_button
