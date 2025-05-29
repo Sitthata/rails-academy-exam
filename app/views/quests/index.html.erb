@@ -13,6 +13,8 @@
       <h1 class="md:text-3xl text-xl font-bold">My Quest Checklist</h1>
       <%= link_to "New Quest", new_quest_path, class: "btn btn-primary" %>
     </div>
-
+    <div>
+      <%= render @quests %>
+    </div>
   </div>
 </section>
