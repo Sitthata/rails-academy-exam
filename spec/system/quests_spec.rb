@@ -36,6 +36,18 @@ describe "Quests", type: :system do
       should_not_see_the_deleted_quest(quest)
     end
   end
+
+  context "when updating a quest's completed status" do
+    let!(:quest) { create(:quest, name: "Quest to be updated", completed: false) }
+    before do
+      visit root_path
+    end
+
+    it "allows the user to update a quest's completed status" do
+      toggle_completed_checkbox(quest)
+      should_see_updated_quest_status(quest)
+    end
+  end
 end
 
 def click_on_new_quest_button
@@ -63,4 +75,14 @@ end
 
 def should_not_see_the_deleted_quest(quest)
   expect(page).not_to have_content(quest.name)
+end
+
+def toggle_completed_checkbox(quest)
+  find_by_id("quest-completed-#{quest.id}-field").click
+  sleep 1
+  quest.reload
+end
+
+def should_see_updated_quest_status(quest)
+  expect(quest.completed).to be_truthy
 end
