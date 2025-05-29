@@ -25,4 +25,16 @@ RSpec.describe "Quests", type: :request do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  describe "DELETE /destroy" do
+    let!(:quest) { create(:quest, name: "Quest to be deleted") }
+
+    it "deletes the quest" do
+      expect {
+        delete quest_path(quest)
+      }.to change(Quest, :count).by(-1)
+
+      expect(Quest.exists?(quest.id)).to be_falsey
+    end
+  end
 end

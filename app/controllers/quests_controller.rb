@@ -14,6 +14,10 @@ class QuestsController < ApplicationController
     end
   end
 
+  def destroy
+    @quest = Quest.find(params[:id]).destroy!
+  end
+
   private
   def quest_params
     params.require(:quest).permit(:name, :completed, :id)
