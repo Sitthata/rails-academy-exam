@@ -1,7 +1,7 @@
 <div class="flex p-4 bg-base-300 rounded-lg justify-between items-center shadow-sm" id="<%= dom_id(quest) %>">
   <%= form_with(model: quest, local: true, data: {controller:"checkbox"}) do |f| %>
-    <%= f.check_box :completed, class: "checkbox", id: "quest-completed-#{quest.id}-field", data: {action: "click->checkbox#submit"} %>
-    <span class="pl-3"><%= quest.name %></span>
+    <%= f.check_box :completed, class: "checkbox mr-3", id: "quest-completed-#{quest.id}-field", data: {action: "click->checkbox#submit"} %>
+    <span class="<%= quest.completed ? 'line-through text-gray-500' : '' %>"><%= quest.name %></span>
   <% end %>
   <%= button_to "Delete", quest_path(quest), method: :delete, class: 'btn btn-error', id: "delete-#{quest.id}-button" %>
 </div>

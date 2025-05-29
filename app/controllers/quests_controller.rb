@@ -26,6 +26,17 @@ class QuestsController < ApplicationController
     end
   end
 
+  def update
+    @quest = Quest.find(params[:id])
+    @quest.update(quest_params)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@quest, partial: "quests/quest", locals: { quest: @quest })
+      end
+    end
+  end
+
   private
   def quest_params
     params.require(:quest).permit(:name, :completed, :id)

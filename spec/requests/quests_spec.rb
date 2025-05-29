@@ -37,4 +37,15 @@ RSpec.describe "Quests", type: :request do
       expect(Quest.exists?(quest.id)).to be_falsey
     end
   end
+
+  describe "PATCH /update" do
+    let!(:quest) { create(:quest, name: "Quest to be updated", completed: false) }
+    let(:updated_params) { { completed: true } }
+
+    it "updates the status of a quest" do
+      patch quest_path(quest), params: { quest: updated_params }
+      quest.reload
+      expect(quest.completed).to be_truthy
+    end
+  end
 end
