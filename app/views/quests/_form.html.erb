@@ -1,8 +1,8 @@
 <%= form_with(model: @quest, local: true) do |f| %>
-    <%= f.text_field :name, placeholder: "New Quest", class: "input w-full" %>
+    <%= f.text_field :name, placeholder: "New Quest", class: "input w-full", id: "quest-name-field" %>
     <%= f.label :completed do %>
       <%= f.check_box :completed, class: "checkbox", id: "quest-completed-field" %>
       mark as completed
     <% end %>
-    <%= f.submit "Add Quest", class: "btn btn-primary" %>
+    <%= f.submit "Add Quest", class: "btn btn-primary", id: "add-quest-button" %>
 <% end %>
