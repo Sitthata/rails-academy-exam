@@ -6,5 +6,16 @@ class QuestsController < ApplicationController
   end
 
   def create
+    @quest = Quest.new(quest_params)
+    if @quest.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+  def quest_params
+    params.require(:quest).permit(:name, :completed, :id)
   end
 end

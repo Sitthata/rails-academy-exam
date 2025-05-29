@@ -14,4 +14,15 @@ RSpec.describe "Quests", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "POST /create" do
+    let(:quest_params) { { name: "New Quest", completed: false } }
+    it "creates a new quest and redirects to the quest list page" do
+      expect {
+        post quests_path, params: { quest: quest_params }
+      }.to change(Quest, :count).by(1)
+      expect(Quest.last.name).to eq("New Quest")
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end
