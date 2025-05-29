@@ -32,8 +32,8 @@ describe "Quests", type: :system do
 
     it "allows the user to delete a quest" do
       expect(page).to have_content("Quest to be deleted")
-      find("#delete-#{quest.id}-button").click
-      expect(page).not_to have_content("Quest to be deleted")
+      click_on_delete_quest_button(quest)
+      should_not_see_the_deleted_quest(quest)
     end
   end
 end
@@ -55,4 +55,12 @@ end
 
 def should_see_the_added_quest(name)
   expect(page).to have_content(name)
+end
+
+def click_on_delete_quest_button(quest)
+  find("#delete-#{quest.id}-button").click
+end
+
+def should_not_see_the_deleted_quest(quest)
+  expect(page).not_to have_content(quest.name)
 end
